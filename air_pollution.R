@@ -1,3 +1,5 @@
+# first programming assignment
+
 pollutantmean <- function(directory, pollutant, id=1:332) {
   
   sum <- 0
@@ -9,11 +11,12 @@ pollutantmean <- function(directory, pollutant, id=1:332) {
     filepath <- sprintf("%s%03d.csv",directory,i)
 
     # read that csv
-    df <- na.omit(read.csv(filepath))
+    df <- read.csv(filepath)
+    col <- na.omit(df[pollutant])
    
     # update value
-    sum <- sum + sum(df[pollutant])
-    count <- count + length(df[pollutant])
+    sum <- sum + sum(col)
+    count <- count + nrow(col)
     
   }
   
@@ -21,4 +24,31 @@ pollutantmean <- function(directory, pollutant, id=1:332) {
   
 }
 
-pollutantmean("./datasets/specdata/","nitrate",70:72) 
+complete <- function(directory, id=1:332) {
+  
+  # empty nobs vector
+  nobs <- c()
+  
+  # loop through all ids
+  for (i in id) {
+    # create full path to csv 
+    filepath <- sprintf("%s%03d.csv",directory,i)
+    
+    # read that csv
+    df <- read.csv(filepath)
+    df <- na.omit(df)
+    
+    # append value
+    nobs <- c(nobs,nrow(df))
+    
+  }
+  
+  df <- data.frame(id,nobs)
+  df <- setNames(df,c("id","nobs"))
+  df
+  
+}
+
+pollutantmean("./datasets/specdata/","nitrate",23) 
+complete("./datasets/specdata/",30:25) 
+
