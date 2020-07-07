@@ -82,8 +82,11 @@ corr <- function(directory, threshold = 0) {
   
 }
 
-pollutantmean("./datasets/specdata/","nitrate",23) 
+pollutantmean("./datasets/specdata/","nitrate",70:72) 
 complete("./datasets/specdata/",30:25) 
 cr <- corr("./datasets/specdata/", 400)
 head(cr)
 summary(cr)
+
+cc <- complete("./datasets/specdata/", c(6, 10, 20, 34, 100, 200, 310))
+print(cc$nobs)
